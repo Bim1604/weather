@@ -7,5 +7,6 @@ class AppColor {
   static Color screenErrBGColor = const Color(0xFFE85959);
   static Color textPrimaryColor = const Color(0xFF2A2A2A);
   static Color textSecondaryColor = const Color(0xFF556799);
+  static Color borderColor = const Color(0xFFECECEC);
 
 }

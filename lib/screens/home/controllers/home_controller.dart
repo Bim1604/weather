@@ -1,9 +1,11 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
+import 'package:untitled1/utils/log_utils.dart';
 
 class HomeController extends GetxController {
 
-  RxBool isLoading = false.obs;
-
+  RxBool isLoading = true.obs;
 
   @override
   void onInit() {
@@ -12,13 +14,18 @@ class HomeController extends GetxController {
   }
 
   void init () async {
-    await Future.wait([
-      initCurrentLocation()
-    ]);
+    try {
+      await Future.wait([
+        initCurrentLocation()
+      ]);
+      isLoading.value = false;
+    } catch (e) {
+      LogUtils.writeLog(content: e.toString(), func: "HomeController");
+    }
   }
 
   Future<void> initCurrentLocation() async {
-
+    await Future.delayed(const Duration(seconds: 7));
   }
 
 }
