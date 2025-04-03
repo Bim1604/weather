@@ -22,7 +22,7 @@ class AppScreen extends GetWidget<AppController>{
       debugShowCheckedModeBanner: false,
       defaultTransition: Transition.fade,
       initialBinding: AppBinding(),
-      initialRoute: AppRouter.welcome,
+      initialRoute: AppRouter.home,
       getPages: AppPages.list,
       themeMode: ThemeMode.light,
       theme: ThemeData(
@@ -30,7 +30,6 @@ class AppScreen extends GetWidget<AppController>{
         visualDensity: VisualDensity.adaptivePlatformDensity,
         scaffoldBackgroundColor: Colors.white,
         fontFamily: 'Roboto',
-        colorScheme: AppConfig.colorScheme,
         textTheme: AppConfig.textTheme
       ),
     );

@@ -2,32 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:untitled1/datas/app_color.dart';
 
 class AppConfig {
-  static ColorScheme colorScheme = ColorScheme(
-    shadow: Colors.blue,
-    brightness: Brightness.light,
-    primary: AppColor.primaryBlueColor,
-    onPrimary: AppColor.primaryBlueColor,
-    secondary: AppColor.primaryGreyColor,
-    onSecondary: AppColor.primaryGreyColor,
-    tertiary: Colors.white,
-    onTertiary: Colors.black,
-    error: Colors.red,
-    onError: Colors.redAccent,
-    background: Colors.white,
-    onBackground: Colors.white,
-    surface: Colors.white,
-    onSurface: Colors.white,
-  );
-
-  static TextTheme textTheme = const TextTheme(
-    bodySmall: TextStyle(fontSize: 13, color: Colors.black, letterSpacing: 0, fontWeight: FontWeight.w400), // caption
-    bodyLarge: TextStyle(fontSize: 14, color: Colors.black, letterSpacing: 0, fontWeight: FontWeight.w400), // body 2
-    bodyMedium: TextStyle(fontSize: 14, color: Colors.black, letterSpacing: 0, fontWeight: FontWeight.w500), // body 1
-    titleMedium: TextStyle(fontSize: 14, color: Colors.black, letterSpacing: 0, fontWeight: FontWeight.w700), // subheader
-    displaySmall: TextStyle(fontSize: 16, color: Colors.black, letterSpacing: 0, fontWeight: FontWeight.w700), // heading3
-    displayMedium: TextStyle(fontSize: 18, color: Colors.black, letterSpacing: 0, fontWeight: FontWeight.w700), // heading2
-    displayLarge: TextStyle(fontSize: 20, color: Colors.black, letterSpacing: 0, fontWeight: FontWeight.w700), // heading2
-    titleSmall: TextStyle(fontSize: 14, color: Colors.black, letterSpacing: 0, fontWeight: FontWeight.w400), // heading2
-
+  static TextTheme textTheme = TextTheme(
+    titleMedium: TextStyle(fontSize: 54, color: AppColor.textColor, fontFamily: 'Roboto', fontWeight: FontWeight.w100, letterSpacing: 0),
+    displayLarge: TextStyle(fontSize: 96, color: AppColor.textPrimaryColor, fontFamily: 'Roboto', fontWeight: FontWeight.w700, letterSpacing: 0, height: 1.2,),
+    displayMedium: TextStyle(fontSize: 36, color: AppColor.textSecondaryColor, fontFamily: 'Roboto', fontWeight: FontWeight.w100, letterSpacing: 0, height: 1.4,),
+    titleSmall: TextStyle(fontSize: 16, color: AppColor.textPrimaryColor, fontFamily: 'Roboto', letterSpacing: 0, fontWeight: FontWeight.w400, height: 1.2),
+    labelLarge: TextStyle(fontSize: 20, color: AppColor.textColor, fontFamily: 'Roboto', letterSpacing: 0, fontWeight: FontWeight.w400, height: 1.2),
   );
 }
