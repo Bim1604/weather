@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:untitled1/datas/app_data.dart';
+import 'package:untitled1/datas/app_url.dart';
 import 'package:untitled1/utils/preference_utility.dart';
 
 class HttpClientService {
@@ -8,8 +9,7 @@ class HttpClientService {
   HttpClientService._();
 
   Dio get dio {
-    // If completer is null, AppDatabaseClass is newly instantiated, so database is not yet opened
-    Dio dio = Dio(setupOptionDio());
+    Dio dio = Dio();
     dio.interceptors.add(MiddlewareInterceptor());
     return dio;
   }
@@ -29,12 +29,10 @@ class HttpClientService {
 class MiddlewareInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) async{
-    var token = PreferenceUtility.getString(AppData.tokenKey);
-    var fcmToken = PreferenceUtility.getString(AppData.fcmKey);
-      options.headers["fcm_token"] = fcmToken;
-      options.contentType = "application/json";
-    if(token.isNotEmpty){
-      options.headers["Authorization"] = "Bearer $token";
+    if (options.path.contains('/forecast')) {
+      options.baseUrl = AppUrl.proWeatherBase;
+    } else {
+      options.baseUrl = AppUrl.weatherBase;
     }
     return handler.next(options);
   }

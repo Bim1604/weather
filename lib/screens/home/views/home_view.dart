@@ -13,9 +13,12 @@ class HomeView extends GetWidget<HomeController> {
     if (controller.isLoading.value) {
       return const LoadingViewElement();
     }
-    return const Column(
+    return Column(
       children: [
-        HomeHeaderElement(),
+        HomeHeaderElement(
+          location: (controller.geoData.value.name ?? ""),
+          temperature: (controller.data.value.main?.temp ?? 0.0).round().toString(),
+        ),
         Expanded(child: HomeBodyElement())
       ],
     );

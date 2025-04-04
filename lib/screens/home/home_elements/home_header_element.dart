@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:untitled1/datas/app_color.dart';
 
 class HomeHeaderElement extends StatelessWidget {
-  const HomeHeaderElement({super.key});
+  const HomeHeaderElement({super.key, required this.temperature, required this.location});
+
+  final String temperature;
+  final String location;
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +28,8 @@ class HomeHeaderElement extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('20°', style: Theme.of(context).textTheme.displayLarge, textAlign: TextAlign.center,),
-          Text('Bangalore°', style: Theme.of(context).textTheme.displayMedium, textAlign: TextAlign.center,),
+          Text('$temperature°', style: Theme.of(context).textTheme.displayLarge, textAlign: TextAlign.center,),
+          Text(location, style: Theme.of(context).textTheme.displayMedium, textAlign: TextAlign.center,),
         ],
       ),
     );
