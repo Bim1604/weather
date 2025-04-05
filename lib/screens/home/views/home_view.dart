@@ -19,7 +19,10 @@ class HomeView extends GetWidget<HomeController> {
           location: (controller.geoData.value.name ?? ""),
           temperature: (controller.data.value.main?.temp ?? 0.0).round().toString(),
         ),
-        Expanded(child: HomeBodyElement())
+        Expanded(
+            child: HomeBodyElement(
+          forecast: controller.forecastData.value,
+        ))
       ],
     );
   }

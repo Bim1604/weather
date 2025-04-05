@@ -1,3 +1,5 @@
+import 'package:untitled1/utils/time_utils.dart';
+
 class WeatherForecast {
   String cod;
   int message;
@@ -13,6 +15,25 @@ class WeatherForecast {
     required this.city,
   });
 
+  factory WeatherForecast.defaultInstance() {
+    return WeatherForecast(
+      cod: "200",
+      message: 0,
+      cnt: 0,
+      list: [],
+      city: City(
+        id: 0,
+        name: "Unknown",
+        coord: Coord(lat: 0.0, lon: 0.0),
+        country: "N/A",
+        population: 0,
+        timezone: 0,
+        sunrise: 0,
+        sunset: 0,
+      ),
+    );
+  }
+
   factory WeatherForecast.fromJson(Map<String, dynamic> json) {
     return WeatherForecast(
       cod: json['cod'],
@@ -26,8 +47,12 @@ class WeatherForecast {
   factory WeatherForecast.fromJson5days(Map<String, dynamic> json, String representativeHour) {
     List<ForecastItem> list = List.empty(growable: true);
     for (var item in json['list']) {
+      if (item['dt_txt'] == null) continue;
+      String dayDtString = item['dt_txt'].toString().split(" ").first;
+      DateTime dayDt = DateTime.parse(dayDtString);
+      if (TimeUtils.isToday(dayDt)) continue;
       if (item['dt_txt'].toString().contains(representativeHour)) {
-        list.add(ForecastItem.fromJson(item));
+        list.add(ForecastItem.fromJson(item, dayDt: dayDt));
       }
     }
     return WeatherForecast(
@@ -51,6 +76,7 @@ class ForecastItem {
   final Rain? rain;
   final Sys sys;
   final String dtTxt;
+  final DateTime? day;
 
   ForecastItem({
     required this.dt,
@@ -63,9 +89,10 @@ class ForecastItem {
     this.rain,
     required this.sys,
     required this.dtTxt,
+    this.day
   });
 
-  factory ForecastItem.fromJson(Map<String, dynamic> json) {
+  factory ForecastItem.fromJson(Map<String, dynamic> json, {DateTime? dayDt}) {
     return ForecastItem(
       dt: json['dt'],
       main: MainWeather.fromJson(json['main']),
@@ -77,7 +104,18 @@ class ForecastItem {
       rain: json['rain'] != null ? Rain.fromJson(json['rain']) : null,
       sys: Sys.fromJson(json['sys']),
       dtTxt: json['dt_txt'],
+      day: dayDt
     );
+  }
+
+  String getWeekDayByDate() {
+    if (day == null) return "";
+    return TimeUtils.getWeekday(day!);
+  }
+
+  String getDisplayTemp() {
+    return "${main.feelsLike.round()}C";
+
   }
 }
 

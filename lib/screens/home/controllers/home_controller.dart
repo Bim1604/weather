@@ -13,7 +13,7 @@ class HomeController extends GetxController {
   RxBool isLoading = true.obs;
   Rx<CurrentWeatherModel> data = CurrentWeatherModel().obs;
   Rx<GeoModel> geoData = GeoModel().obs;
-  Rxn<WeatherForecast> forecastData = Rxn<WeatherForecast>();
+  Rx<WeatherForecast> forecastData = Rx<WeatherForecast>(WeatherForecast.defaultInstance());
   Position? currentLocation;
   RxBool isErr = false.obs;
   late WeatherProvider weatherProvider;
@@ -32,14 +32,17 @@ class HomeController extends GetxController {
 
   void init () async {
     try {
+      isLoading.value = true;
       await initCurrentLocation().then((value) {
         Future.wait([
-          // getCurrentWeather(),
-          // getCurrentGeo(),
+          getCurrentWeather(),
+          getCurrentGeo(),
           getWeather4daysNext(),
         ]);
       });
+      print("huhu3");
       isLoading.value = false;
+
     } catch (e) {
       LogUtils.writeLog(content: e.toString(), func: "HomeController");
       isLoading.value = false;

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:untitled1/datas/app_color.dart';
+import 'package:untitled1/models/weather_forecast_model.dart';
 
 class HomeBodyElement extends StatelessWidget {
-  const HomeBodyElement({super.key});
+  const HomeBodyElement({super.key, required this.forecast});
+
+  final WeatherForecast forecast;
 
   @override
   Widget build(BuildContext context) {
@@ -13,14 +16,15 @@ class HomeBodyElement extends StatelessWidget {
           padding: EdgeInsets.zero,
           physics: const AlwaysScrollableScrollPhysics(),
           itemBuilder: (context, index) {
-            return buildItemWidget(context);
+            ForecastItem item = forecast.list[index];
+            return buildItemWidget(context, item);
           }
       ),
     );
   }
 }
 
-Widget buildItemWidget(BuildContext context) {
+Widget buildItemWidget(BuildContext context, ForecastItem data) {
   Widget result = Container(
     height: 80,
     decoration: BoxDecoration(
@@ -31,8 +35,8 @@ Widget buildItemWidget(BuildContext context) {
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text('Tuesday', style: Theme.of(context).textTheme.titleSmall,),
-        Text('24' + "C", style: Theme.of(context).textTheme.titleSmall,),
+        Text(data.getWeekDayByDate(), style: Theme.of(context).textTheme.titleSmall,),
+        Text(data.getDisplayTemp(), style: Theme.of(context).textTheme.titleSmall,),
       ],
     ),
   );
