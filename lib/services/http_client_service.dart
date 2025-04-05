@@ -29,11 +29,11 @@ class HttpClientService {
 class MiddlewareInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) async{
-    if (options.path.contains('/forecast')) {
-      options.baseUrl = AppUrl.proWeatherBase;
-    } else {
+    // if (options.path.contains('/forecast')) {
+    //   options.baseUrl = AppUrl.proWeatherBase;
+    // } else {
+    // }
       options.baseUrl = AppUrl.weatherBase;
-    }
     return handler.next(options);
   }
 

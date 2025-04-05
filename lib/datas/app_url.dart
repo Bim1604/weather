@@ -4,5 +4,5 @@ class AppUrl {
   static const String weatherPath = "data/2.5/weather";
   static const String geoPath = "geo/1.0/reverse";
   static const String fourDaysPath = "data/2.5/forecast/hourly";
-  static const String oneCallPath = "data/3.0/onecall";
+  static const String fiveDays3HourPath = "data/2.5/forecast";
 }

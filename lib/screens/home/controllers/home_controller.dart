@@ -3,6 +3,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:untitled1/models/current_weather_model.dart';
 import 'package:untitled1/models/geo_model.dart';
+import 'package:untitled1/models/weather_forecast_model.dart';
 import 'package:untitled1/providers/weather_provider.dart';
 import 'package:untitled1/services/location_service.dart';
 import 'package:untitled1/utils/log_utils.dart';
@@ -12,6 +13,7 @@ class HomeController extends GetxController {
   RxBool isLoading = true.obs;
   Rx<CurrentWeatherModel> data = CurrentWeatherModel().obs;
   Rx<GeoModel> geoData = GeoModel().obs;
+  Rxn<WeatherForecast> forecastData = Rxn<WeatherForecast>();
   Position? currentLocation;
   RxBool isErr = false.obs;
   late WeatherProvider weatherProvider;
@@ -32,8 +34,9 @@ class HomeController extends GetxController {
     try {
       await initCurrentLocation().then((value) {
         Future.wait([
-          getCurrentWeather(),
-          getCurrentGeo(),
+          // getCurrentWeather(),
+          // getCurrentGeo(),
+          getWeather4daysNext(),
         ]);
       });
       isLoading.value = false;
@@ -83,6 +86,17 @@ class HomeController extends GetxController {
       return;
     }
     geoData.value = result;
+  }
+
+  Future<void> getWeather4daysNext() async {
+    bool validCurrentLocation = isHasCurrentLocation();
+    if (validCurrentLocation == false) return;
+    WeatherForecast? result = await weatherProvider.getWeather4day(pos: currentLocation!);
+    if (result == null) {
+      isErr.value = true;
+      return;
+    }
+    forecastData.value = result;
   }
 
 }

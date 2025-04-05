@@ -152,10 +152,10 @@ class Main {
         this.grndLevel});
 
   Main.fromJson(Map<String, dynamic> json) {
-    temp = json['temp'];
-    feelsLike = json['feels_like'];
-    tempMin = json['temp_min'];
-    tempMax = json['temp_max'];
+    temp = json['temp'] != null ? double.parse(json['temp'].toString()) : null;
+    feelsLike = json['feelsLike'] != null ? double.parse(json['feelsLike'].toString()) : null;
+    tempMin = json['temp_min'] != null ? double.parse(json['temp_min'].toString()) : null;
+    tempMax = json['temp_max'] != null ? double.parse(json['temp_max'].toString()) : null;
     pressure = json['pressure'];
     humidity = json['humidity'];
     seaLevel = json['sea_level'];
