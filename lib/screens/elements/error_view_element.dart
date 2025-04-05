@@ -3,7 +3,9 @@ import 'package:untitled1/components/buttons/button_default.dart';
 import 'package:untitled1/datas/app_color.dart';
 
 class ErrorViews extends StatefulWidget {
-   const ErrorViews({super.key});
+   const ErrorViews({super.key, required this.callback});
+
+   final Function() callback;
 
    @override
    State<ErrorViews> createState() => _ErrorViewsState();
@@ -16,15 +18,19 @@ class ErrorViews extends StatefulWidget {
      return Container(
        alignment: Alignment.center,
        color: AppColor.screenErrBGColor,
-       padding: EdgeInsets.symmetric(horizontal: size.width * .15),
+       padding: EdgeInsets.symmetric(horizontal: size.width * .12),
        child: Column(
-         crossAxisAlignment: CrossAxisAlignment.center,
+         crossAxisAlignment: CrossAxisAlignment.stretch,
          mainAxisAlignment: MainAxisAlignment.center,
          children: [
             Text("Something went wrong at our end!", style: Theme.of(context).textTheme.titleMedium, textAlign: TextAlign.justify,),
             const SizedBox(height: 44),
-            const ButtonDefault(
-              content: "RETRY",
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: size.width * .2),
+              child: ButtonDefault(
+                content: "RETRY",
+                callback: widget.callback
+              ),
             )
          ],
        ),

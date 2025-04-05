@@ -13,6 +13,13 @@ class HomeView extends GetWidget<HomeController> {
     if (controller.isLoading.value) {
       return const LoadingViewElement();
     }
+    if (controller.isErr.value) {
+      return ErrorViews(
+        callback: () {
+          controller.onFetchData();
+        },
+      );
+    }
     return Column(
       children: [
         HomeHeaderElement(

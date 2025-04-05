@@ -26,11 +26,11 @@ class HomeController extends GetxController {
 
   @override
   void onReady() {
-    init();
+    onFetchData();
     super.onReady();
   }
 
-  void init () async {
+  void onFetchData () async {
     try {
       isLoading.value = true;
       await initCurrentLocation();
@@ -40,7 +40,7 @@ class HomeController extends GetxController {
         getWeather4daysNext(),
       ]);
       isLoading.value = false;
-
+      isErr.value = false;
     } catch (e) {
       LogUtils.writeLog(content: e.toString(), func: "HomeController");
       isLoading.value = false;
