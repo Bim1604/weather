@@ -33,14 +33,12 @@ class HomeController extends GetxController {
   void init () async {
     try {
       isLoading.value = true;
-      await initCurrentLocation().then((value) {
-        Future.wait([
-          getCurrentWeather(),
-          getCurrentGeo(),
-          getWeather4daysNext(),
-        ]);
-      });
-      print("huhu3");
+      await initCurrentLocation();
+      await Future.wait([
+        getCurrentWeather(),
+        getCurrentGeo(),
+        getWeather4daysNext(),
+      ]);
       isLoading.value = false;
 
     } catch (e) {
