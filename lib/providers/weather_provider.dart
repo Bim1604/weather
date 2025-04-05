@@ -42,7 +42,7 @@ class WeatherProvider extends AppProvider {
 
   Future<WeatherForecast?> getWeather4day ({required Position pos}) async {
     WeatherForecast? data;
-    String representativeHour = "15:00:00"; /// Take a time frame that represents the temperature of the entire day
+    String representativeHour = "21:00:00"; /// final time in a day
     Response response = await httpClient.get(AppUrl.fiveDays3HourPath, queryParameters: {
       'lat': pos.latitude,
       'lon': pos.longitude,

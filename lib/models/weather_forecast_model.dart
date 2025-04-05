@@ -1,11 +1,14 @@
 import 'package:untitled1/utils/time_utils.dart';
 
+const int limitDayRepresent = 4;
+
 class WeatherForecast {
   String cod;
   int message;
   int cnt;
   List<ForecastItem> list;
   City city;
+  Map<String, List<double>> dailyTemp = {};
 
   WeatherForecast({
     required this.cod,
@@ -13,6 +16,7 @@ class WeatherForecast {
     required this.cnt,
     required this.list,
     required this.city,
+    required this.dailyTemp
   });
 
   factory WeatherForecast.defaultInstance() {
@@ -21,6 +25,7 @@ class WeatherForecast {
       message: 0,
       cnt: 0,
       list: [],
+      dailyTemp: {},
       city: City(
         id: 0,
         name: "Unknown",
@@ -36,6 +41,7 @@ class WeatherForecast {
 
   factory WeatherForecast.fromJson(Map<String, dynamic> json) {
     return WeatherForecast(
+      dailyTemp: {},
       cod: json['cod'],
       message: json['message'],
       cnt: json['cnt'],
@@ -46,13 +52,19 @@ class WeatherForecast {
 
   factory WeatherForecast.fromJson5days(Map<String, dynamic> json, String representativeHour) {
     List<ForecastItem> list = List.empty(growable: true);
+    Map<String, List<double>> dailyTemps = {};
     for (var item in json['list']) {
+      if (list.length == limitDayRepresent) break;
       if (item['dt_txt'] == null) continue;
       String dayDtString = item['dt_txt'].toString().split(" ").first;
       DateTime dayDt = DateTime.parse(dayDtString);
       if (TimeUtils.isToday(dayDt)) continue;
+      if (!dailyTemps.containsKey(dayDtString)) {
+        dailyTemps[dayDtString] = [];
+      }
+      dailyTemps[dayDtString]!.add(item['main']['temp']);
       if (item['dt_txt'].toString().contains(representativeHour)) {
-        list.add(ForecastItem.fromJson(item, dayDt: dayDt));
+        list.add(ForecastItem.fromJson(item, dayDt: dayDt, dailyKey: dayDtString));
       }
     }
     return WeatherForecast(
@@ -60,6 +72,7 @@ class WeatherForecast {
       message: json['message'],
       cnt: json['cnt'],
       list: list,
+      dailyTemp: dailyTemps,
       city: City.fromJson(json['city']),
     );
   }
@@ -77,6 +90,7 @@ class ForecastItem {
   final Sys sys;
   final String dtTxt;
   final DateTime? day;
+  final String? dailyKey;
 
   ForecastItem({
     required this.dt,
@@ -89,10 +103,11 @@ class ForecastItem {
     this.rain,
     required this.sys,
     required this.dtTxt,
-    this.day
+    this.day,
+    this.dailyKey
   });
 
-  factory ForecastItem.fromJson(Map<String, dynamic> json, {DateTime? dayDt}) {
+  factory ForecastItem.fromJson(Map<String, dynamic> json, {DateTime? dayDt, String? dailyKey}) {
     return ForecastItem(
       dt: json['dt'],
       main: MainWeather.fromJson(json['main']),
@@ -104,7 +119,8 @@ class ForecastItem {
       rain: json['rain'] != null ? Rain.fromJson(json['rain']) : null,
       sys: Sys.fromJson(json['sys']),
       dtTxt: json['dt_txt'],
-      day: dayDt
+      day: dayDt,
+      dailyKey: dailyKey,
     );
   }
 
@@ -113,9 +129,9 @@ class ForecastItem {
     return TimeUtils.getWeekday(day!);
   }
 
-  String getDisplayTemp() {
-    return "${main.feelsLike.round()}C";
-
+  String getDisplayTemp(List<double> dailyTemp) {
+    double avgTemp = dailyTemp.reduce((a, b) => a + b) / dailyTemp.length;
+    return "${avgTemp.round()}C";
   }
 }
 

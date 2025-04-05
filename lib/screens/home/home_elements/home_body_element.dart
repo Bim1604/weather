@@ -12,19 +12,20 @@ class HomeBodyElement extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
       child: ListView.builder(
-          itemCount: 4,
+          itemCount: forecast.list.length,
           padding: EdgeInsets.zero,
           physics: const AlwaysScrollableScrollPhysics(),
           itemBuilder: (context, index) {
             ForecastItem item = forecast.list[index];
-            return buildItemWidget(context, item);
+            List<double> dailyTemp = forecast.dailyTemp[item.dailyKey] ?? [];
+            return buildItemWidget(context, item, dailyTemp);
           }
       ),
     );
   }
 }
 
-Widget buildItemWidget(BuildContext context, ForecastItem data) {
+Widget buildItemWidget(BuildContext context, ForecastItem data, List<double> dailyTemp) {
   Widget result = Container(
     height: 80,
     decoration: BoxDecoration(
@@ -36,7 +37,7 @@ Widget buildItemWidget(BuildContext context, ForecastItem data) {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(data.getWeekDayByDate(), style: Theme.of(context).textTheme.titleSmall,),
-        Text(data.getDisplayTemp(), style: Theme.of(context).textTheme.titleSmall,),
+        Text(data.getDisplayTemp(dailyTemp), style: Theme.of(context).textTheme.titleSmall,),
       ],
     ),
   );
