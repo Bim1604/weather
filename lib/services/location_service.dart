@@ -7,19 +7,19 @@ class LocationService {
 
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      return Future.error("Dịch vụ vị trí không được bật");
+      return Future.error("Location service is not enabled.");
     }
 
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        return Future.error("Quyền truy cập vị trí bị từ chối");
+        return Future.error("Location permission denied.");
       }
     }
 
     if (permission == LocationPermission.deniedForever) {
-      return Future.error("Quyền truy cập vị trí bị từ chối vĩnh viễn");
+      return Future.error("Location permission permanently denied.");
     }
 
     return await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
