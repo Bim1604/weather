@@ -79,30 +79,30 @@ class WeatherForecast {
 }
 
 class ForecastItem {
-  final int dt;
-  final MainWeather main;
-  final List<Weather> weather;
-  final Clouds clouds;
-  final Wind wind;
-  final int visibility;
-  final double pop;
+  final int? dt;
+  final MainWeather? main;
+  final List<Weather>? weather;
+  final Clouds? clouds;
+  final Wind? wind;
+  final int? visibility;
+  final double? pop;
   final Rain? rain;
-  final Sys sys;
-  final String dtTxt;
+  final Sys? sys;
+  final String? dtTxt;
   final DateTime? day;
   final String? dailyKey;
 
   ForecastItem({
-    required this.dt,
-    required this.main,
-    required this.weather,
-    required this.clouds,
-    required this.wind,
-    required this.visibility,
-    required this.pop,
+    this.dt,
+    this.main,
+    this.weather,
+    this.clouds,
+    this.wind,
+    this.visibility,
+    this.pop,
     this.rain,
-    required this.sys,
-    required this.dtTxt,
+    this.sys,
+    this.dtTxt,
     this.day,
     this.dailyKey
   });
@@ -136,26 +136,26 @@ class ForecastItem {
 }
 
 class MainWeather {
-  final double temp;
-  final double feelsLike;
-  final double tempMin;
-  final double tempMax;
-  final int pressure;
-  final int seaLevel;
-  final int grndLevel;
-  final int humidity;
-  final double tempKf;
+  final double? temp;
+  final double? feelsLike;
+  final double? tempMin;
+  final double? tempMax;
+  final int? pressure;
+  final int? seaLevel;
+  final int? grndLevel;
+  final int? humidity;
+  final double? tempKf;
 
   MainWeather({
-    required this.temp,
-    required this.feelsLike,
-    required this.tempMin,
-    required this.tempMax,
-    required this.pressure,
-    required this.seaLevel,
-    required this.grndLevel,
-    required this.humidity,
-    required this.tempKf,
+    this.temp,
+    this.feelsLike,
+    this.tempMin,
+    this.tempMax,
+    this.pressure,
+    this.seaLevel,
+    this.grndLevel,
+    this.humidity,
+    this.tempKf,
   });
 
   factory MainWeather.fromJson(Map<String, dynamic> json) {
