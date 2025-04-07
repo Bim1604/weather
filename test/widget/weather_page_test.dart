@@ -1,16 +1,13 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter/material.dart';
 import 'package:geolocator_platform_interface/src/models/position.dart';
 import 'package:get/get.dart';
 import 'package:untitled1/models/current_weather_model.dart';
 import 'package:untitled1/models/geo_model.dart';
 import 'package:untitled1/models/weather_forecast_model.dart';
 import 'package:untitled1/providers/weather_provider.dart';
-import 'package:untitled1/screens/app/views/app_view.dart';
 import 'package:untitled1/screens/elements/error_view_element.dart';
 import 'package:untitled1/screens/elements/loading_view_element.dart';
 import 'package:untitled1/screens/home/controllers/home_controller.dart';
-import 'package:untitled1/screens/home/home_elements/home_header_element.dart';
 import 'package:untitled1/screens/home/views/home_view.dart';
 import 'package:untitled1/utils/time_utils.dart';
 
