@@ -22,7 +22,7 @@ class AppScreen extends GetWidget<AppController>{
       debugShowCheckedModeBanner: false,
       defaultTransition: Transition.fade,
       initialBinding: AppBinding(),
-      initialRoute: AppRouter.home,
+      initialRoute: AppRouter.welcome,
       getPages: AppPages.list,
       themeMode: ThemeMode.light,
       theme: ThemeData(

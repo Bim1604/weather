@@ -53,7 +53,7 @@ class HomeController extends GetxController {
       ScaffoldMessenger.of(Get.context!).showSnackBar(
         const SnackBar(
           content: Text("Current location not found."),
-          backgroundColor: Colors.blue,
+          backgroundColor: Colors.redAccent,
           duration: Duration(seconds: 3),
         ),
       );

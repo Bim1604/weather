@@ -9,7 +9,7 @@ class AppController extends GetxController {
   }
 
   void init () async {
-    /// Load config init app
+    /// init setup app config
   }
 
 }
